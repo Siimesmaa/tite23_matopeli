@@ -30,11 +30,11 @@ class SnakeGame(QGraphicsView):
     def keyPressEvent(self, event):
         key = event.key()
         # starting game by button
-        if not self.game_started:
-            if key == event.key():
-                 self.game_started = True
-                 self.scene().clear()
-                 self.start_game()
+        if key not in (Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down):
+                self.game_started = True
+                self.scene().clear()
+                self.start_game()
+
         if key in (Qt.Key_Left, Qt.Key_Right, Qt.Key_Up, Qt.Key_Down):
             # päivitetään suunta vain jos se ei ole vastakkainen valitulle suunnalle
             if key == Qt.Key_Left and self.direction != Qt.Key_Right:
@@ -62,7 +62,7 @@ class SnakeGame(QGraphicsView):
             # board limits
         if new_head in self.snake or not (0 <= new_head[0] < GRID_WIDTH) or not (0 <= new_head[1] < GRID_HEIGHT):
             self.timer.stop()
-            game_over_text = self.scene().addText("Game Over", QFont("Arial", 24))
+            game_over_text = self.scene().addText("Game Over\nPress any key to start new game", QFont("Arial", 19))
             text_width = game_over_text.boundingRect().width()
             text_x = (self.width() - text_width) / 2
             game_over_text.setPos(text_x, GRID_HEIGHT * CELL_SIZE / 2)
