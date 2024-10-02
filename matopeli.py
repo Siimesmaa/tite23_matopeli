@@ -96,6 +96,10 @@ class SnakeGame(QGraphicsView):
         self.snake = [(5, 5), (5, 6), (5, 7)]
         self.food = self.spawn_food()
         self.timer.start(300)
+        #for levels
+        self.level_limit = 5
+        self.timer_delay = 300
+        self.timer.start(self.timer_delay)
         
     def init_screen(self):
         start_text = self.scene().addText("Press any key to start", QFont("Arial", 18))
