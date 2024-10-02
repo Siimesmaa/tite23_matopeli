@@ -74,6 +74,7 @@ class SnakeGame(QGraphicsView):
         self.snake.insert(0, new_head)
         
         if new_head == self.food:
+            self.score += 1
             self.food = self.spawn_food()
         else:
             self.snake.pop()
@@ -96,9 +97,11 @@ class SnakeGame(QGraphicsView):
         
         x, y = self.food
         self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.red))
+        self.scene().addText(f"Score: {self.score}", QFont("Arial", 12))
 
         
     def start_game(self):
+        self.score = 0
         self.direction = Qt.Key_Right
         self.snake = [(5, 5), (5, 6), (5, 7)]
         self.food = self.spawn_food()
@@ -129,3 +132,6 @@ if __name__ == "__main__":
     main()
 
 #asdasdasdasdasdasd
+
+
+
