@@ -71,6 +71,13 @@ class SnakeGame(QGraphicsView):
 
         self.print_game()
 
+    def spawn_food(self):
+        while True:
+            x=random.randint(0,GRID_WIDTH - 1)
+            y= random.randint(0, GRID_HEIGHT - 1)
+            if (x, y) not in self.snake:
+                return x,y
+
     def print_game(self):
         self.scene().clear()
 
@@ -78,9 +85,13 @@ class SnakeGame(QGraphicsView):
             x, y = segment
             self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.black))
         
+        x, y = self.food
+        self.scene().addRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, QPen(Qt.black), QBrush(Qt.red))
+        
     def start_game(self):
         self.direction = Qt.Key_Right
         self.snake = [(5, 5), (5, 6), (5, 7)]
+        self.food = self.spawn_food()
         self.timer.start(300)
         
     def init_screen(self):
@@ -88,6 +99,10 @@ class SnakeGame(QGraphicsView):
         text_width = start_text.boundingRect().width()
         text_x = (self.width() - text_width) / 5
         start_text.setPos(text_x, GRID_HEIGHT * CELL_SIZE / 2)
+
+
+
+        
 
     
 def main():
